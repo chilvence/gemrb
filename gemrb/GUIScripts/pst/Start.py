@@ -55,6 +55,7 @@ def OnLoad():
 	StartWindow.Focus()
 
 	GemRB.LoadMusicPL("Main.mus")
+	ResumeLifePress()
 	return
 	
 def QuitPress():
