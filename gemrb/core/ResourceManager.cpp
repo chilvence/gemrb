@@ -97,13 +97,13 @@ bool ResourceManager::Exists(const char *ResRef, const TypeID *type, bool silent
 			}
 		}
 	}
-	if (!silent) {
+	/*if (!silent) {
 		StringBuffer buffer;
 		buffer.appendFormatted("Couldn't find '%s'... ", ResRef);
 		buffer.append("Tried ");
 		PrintPossibleFiles(buffer, ResRef,type);
 		Log(WARNING, "ResourceManager", buffer);
-	}
+	}*/
 	return false;
 }
 
@@ -115,8 +115,8 @@ DataStream* ResourceManager::GetResource(const char* ResRef, SClass_ID type, boo
 		DataStream *ds = searchPath[i]->GetResource(ResRef, type);
 		if (ds) {
 			if (!silent) {
-				Log(MESSAGE, "ResourceManager", "Found '%s.%s' in '%s'.",
-					ResRef, core->TypeExt(type), searchPath[i]->GetDescription());
+				//Log(MESSAGE, "ResourceManager", "Found '%s.%s' in '%s'.",
+				//	ResRef, core->TypeExt(type), searchPath[i]->GetDescription());
 			}
 			return ds;
 		}
@@ -132,9 +132,9 @@ Resource* ResourceManager::GetResource(const char* ResRef, const TypeID *type, b
 {
 	if (!ResRef || ResRef[0] == '\0')
 		return NULL;
-	if (!silent) {
+/*	if (!silent) {
 		Log(MESSAGE, "ResourceManager", "Searching for '%s'...", ResRef);
-	}
+	}*/
 	const std::vector<ResourceDesc> &types = PluginMgr::Get()->GetResourceDesc(type);
 	for (size_t j = 0; j < types.size(); j++) {
 		for (size_t i = 0; i < searchPath.size(); i++) {
@@ -148,22 +148,22 @@ Resource* ResourceManager::GetResource(const char* ResRef, const TypeID *type, b
 			if (str) {
 				Resource *res = types[j].Create(str);
 				if (res) {
-					if (!silent) {
-						Log(MESSAGE, "ResourceManager", "Found '%s.%s' in '%s'.",
-							ResRef, types[j].GetExt(), searchPath[i]->GetDescription());
-					}
+				/*	if (!silent) {
+					//	Log(MESSAGE, "ResourceManager", "Found '%s.%s' in '%s'.",
+					//		ResRef, types[j].GetExt(), searchPath[i]->GetDescription());
+					}*/
 					return res;
 				}
 			}
 		}
 	}
-	if (!silent) {
+	/*if (!silent) {
 		StringBuffer buffer;
 		buffer.appendFormatted("Couldn't find '%s'... ", ResRef);
 		buffer.append("Tried ");
 		PrintPossibleFiles(buffer, ResRef,type);
 		Log(WARNING, "ResourceManager", buffer);
-	}
+	}*/
 	return NULL;
 }
 
