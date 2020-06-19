@@ -53,7 +53,7 @@ static LPALAUXILIARYEFFECTSLOTI alAuxiliaryEffectSloti = NULL;
 static bool checkALError(const char* msg, log_level level) {
 	int error = alGetError();
 	if (error != AL_NO_ERROR) {
-		Log(level, "OpenAL", "%s: 0x%x - %s", msg, error, alGetString(error));
+//		Log(level, "OpenAL", "%s: 0x%x - %s", msg, error, alGetString(error));
 		return true;
 	}
 	return false;
@@ -62,9 +62,9 @@ static bool checkALError(const char* msg, log_level level) {
 static void showALCError(const char* msg, log_level level, ALCdevice *device) {
 	int error = alcGetError(device);
 	if (error != AL_NO_ERROR) {
-		Log(level, "OpenAL", "%s: 0x%x", msg, error);
+//		Log(level, "OpenAL", "%s: 0x%x", msg, error);
 	} else {
-		Log(level, "OpenAL", "%s", msg);
+//		Log(level, "OpenAL", "%s", msg);
 	}
 }
 
@@ -193,22 +193,22 @@ void OpenALAudioDriver::PrintDeviceList ()
 	char *deviceList;
 
 	if (alcIsExtensionPresent(NULL, (ALchar*)"ALC_ENUMERATION_EXT") == AL_TRUE) { // try out enumeration extension
-		Log(MESSAGE, "OpenAL", "Usable audio output devices:");
+//		Log(MESSAGE, "OpenAL", "Usable audio output devices:");
 		deviceList = (char *)alcGetString(NULL, ALC_DEVICE_SPECIFIER);
 
 		while(deviceList && *deviceList) {
-			Log(MESSAGE,"OpenAL", "Devices: %s", deviceList);
+		//	Log(MESSAGE,"OpenAL", "Devices: %s", deviceList);
 			deviceList+=strlen(deviceList)+1;
 		}
 		return;
 	}
-	Log(MESSAGE, "OpenAL", "No device enumeration present.");
+	//Log(MESSAGE, "OpenAL", "No device enumeration present.");
 }
 
 bool OpenALAudioDriver::Init(void)
 {
-	Log(MESSAGE, "OpenAL", "Initializing OpenAL driver:\nAL Version:%s\nAL Renderer:%s\nAL Vendor:%s",
-		alGetString(AL_VERSION), alGetString(AL_RENDERER), alGetString(AL_VENDOR));
+	//Log(MESSAGE, "OpenAL", "Initializing OpenAL driver:\nAL Version:%s\nAL Renderer:%s\nAL Vendor:%s",
+//		alGetString(AL_VERSION), alGetString(AL_RENDERER), alGetString(AL_VENDOR));
 
 	ALCdevice *device;
 	ALCcontext *context;
@@ -239,8 +239,8 @@ bool OpenALAudioDriver::Init(void)
 	int sources = CountAvailableSources(MAX_STREAMS+1);
 	num_streams = sources - 1;
 
-	Log(MESSAGE, "OpenAL", "Allocated %d streams.%s",
-		num_streams, (num_streams < MAX_STREAMS ? " (Fewer than desired.)" : "" ));
+	//Log(MESSAGE, "OpenAL", "Allocated %d streams.%s",
+	//	num_streams, (num_streams < MAX_STREAMS ? " (Fewer than desired.)" : "" ));
 
 	stayAlive = true;
 #if	SDL_VERSION_ATLEAST(1, 3, 0)
@@ -251,7 +251,7 @@ bool OpenALAudioDriver::Init(void)
 #endif
 
 	if (!InitEFX()) {
-		Log(MESSAGE, "OpenAL", "EFX not available.");
+		//Log(MESSAGE, "OpenAL", "EFX not available.");
 	}
 
 	ambim = new AmbientMgrAL;
@@ -767,7 +767,7 @@ int OpenALAudioDriver::SetupNewStream( ieWord x, ieWord y, ieWord z,
 		}
 	}
 	if (stream == -1) {
-		Log(ERROR, "OpenAL", "No available audio streams out of %d", num_streams);
+		//Log(ERROR, "OpenAL", "No available audio streams out of %d", num_streams);
 		return -1;
 	}
 
@@ -928,13 +928,13 @@ int OpenALAudioDriver::MusicManager(void* arg)
 			}
 			switch (state) {
 				default:
-					Log(ERROR, "OpenAL", "Unhandled Music state '%d'.", state);
+					//Log(ERROR, "OpenAL", "Unhandled Music state '%d'.", state);
 				// intentional fallthrough
 				case AL_PAUSED:
 					driver->MusicPlaying = false;
 					return -1;
 				case AL_INITIAL:
-					Log(MESSAGE, "OpenAL", "Music in INITIAL State. AutoStarting");
+					//Log(MESSAGE, "OpenAL", "Music in INITIAL State. AutoStarting");
 					// ensure that MusicSource has no buffers attached by passing "NULL" buffer
 					alSourcei(driver->MusicSource, AL_BUFFER, 0);
 					checkALError("Unable to detach buffers from music source.", WARNING);
@@ -961,7 +961,7 @@ int OpenALAudioDriver::MusicManager(void* arg)
 					driver->MusicPlaying = false;
 					return -1;
 				case AL_STOPPED:
-					Log(MESSAGE, "OpenAL", "WARNING: Buffer Underrun. AutoRestarting Stream Playback");
+					//Log(MESSAGE, "OpenAL", "WARNING: Buffer Underrun. AutoRestarting Stream Playback");
 					if (driver->MusicSource && alIsSource( driver->MusicSource )) {
 						alSourcePlay( driver->MusicSource );
 						checkALError("Error playing music source", ERROR);
@@ -992,14 +992,14 @@ int OpenALAudioDriver::MusicManager(void* arg)
 						if (size != 0)
 							bFinished = AL_TRUE;
 						if (bFinished) {
-							Log(MESSAGE, "OpenAL", "Playing Next Music");
+							//Log(MESSAGE, "OpenAL", "Playing Next Music");
 							core->GetMusicMgr()->PlayNext();
 							if (driver->MusicPlaying) {
-								Log(MESSAGE, "OpenAL", "Queuing New Music");
+								//Log(MESSAGE, "OpenAL", "Queuing New Music");
 								driver->MusicReader->read_samples( ( driver->music_memory + cnt ), size >> 1 );
 								bFinished = AL_FALSE;
 							} else {
-								Log(MESSAGE, "OpenAL", "No Other Music to play");
+								//Log(MESSAGE, "OpenAL", "No Other Music to play");
 								memset( driver->music_memory + cnt, 0, size );
 								driver->MusicPlaying = false;
 								break;
@@ -1059,13 +1059,13 @@ int OpenALAudioDriver::QueueALBuffer(ALuint source, ALuint buffer)
 	alGetBufferi(buffer, AL_BITS, &bits);
 	alGetBufferi(buffer, AL_CHANNELS, &channels);
 	checkALError("Error querying buffer properties.", WARNING);
-	Log(DEBUG, "OpenAL", "Attempting to buffer audio source:%d\nFrequency:%d\nBits:%d\nChannels:%d",
+	//Log(DEBUG, "OpenAL", "Attempting to buffer audio source:%d\nFrequency:%d\nBits:%d\nChannels:%d",
 		source, frequency, bits, channels);
 #endif
 	ALint type;
 	alGetSourcei(source, AL_SOURCE_TYPE, &type);
 	if (type == AL_STATIC || checkALError("Cannot get AL source type.", ERROR)) {
-		Log(ERROR, "OpenAL", "Cannot queue a buffer to a static source.");
+		//Log(ERROR, "OpenAL", "Cannot queue a buffer to a static source.");
 		return GEM_ERROR;
 	}
 	alSourceQueueBuffers(source, 1, &buffer);
