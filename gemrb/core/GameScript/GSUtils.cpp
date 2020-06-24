@@ -437,7 +437,7 @@ void DisplayStringCore(Scriptable* const Sender, int Strref, int flags)
 	ieResRef soundRef = {};
 	unsigned int channel = SFX_CHAN_DIALOG;
 
-	Log(MESSAGE, "GameScript", "Displaying string on: %s", Sender->GetScriptName() );
+	//Log(MESSAGE, "GameScript", "Displaying string on: %s", Sender->GetScriptName() );
 	if (flags & DS_CONST) {
 		if (Sender->Type!=ST_ACTOR) {
 			Log(ERROR, "GameScript", "Verbal constant not supported for non actors!");
