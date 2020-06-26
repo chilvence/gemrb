@@ -122,6 +122,8 @@ def InitInventoryWindow (Window):
 	Button.SetState (IE_GUI_BUTTON_LOCKED)
 	Button.SetFlags (IE_GUI_BUTTON_NO_IMAGE, OP_SET)
 	Button.SetFont ('NUMBER')
+	# This is only because the text is not nicely aligned
+	Button.SetSize ( 40,30)
 
 	# armor class
 	Label = Window.GetControl (0x1000003a)
