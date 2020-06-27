@@ -98,6 +98,8 @@ def OnLoad():
 	theme = MusicTable.GetValue ("33", "RESOURCE")
 	GemRB.LoadMusicPL (theme, 1)
 	GemRB.SetToken ("SaveDir", "save")
+
+	LoadSingle()
 	return
 
 def SinglePlayerPress():
