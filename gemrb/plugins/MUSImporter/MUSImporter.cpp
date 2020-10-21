@@ -322,7 +322,18 @@ void MUSImporter::PlayMusic(char* name)
 }
 
 bool MUSImporter::CurrentPlayList(const char* name) {
-	return stricmp(name, PLName) == 0;
+
+	//the track name passed here may still have an 8.3 style filename
+	//replacing the "." with "\0" ternminates the string so it 
+	//can be compared to the internal PLName, which is already stripped
+	char tmpname [16];
+	strcpy(tmpname, name);
+	char* p = strchr(tmpname, '.');
+	if (p) {
+		strncpy(p, "\0", 1);
+	}
+
+	return stricmp(tmpname, PLName) == 0;
 }
 
 #include "plugindef.h"
