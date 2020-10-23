@@ -75,6 +75,11 @@ bool NullSound::Resume()
 	return true;
 }
 
+bool NullSound::FadeOut()
+{
+	return true;
+}
+
 void NullSound::ResetMusics()
 {
 }

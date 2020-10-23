@@ -206,6 +206,7 @@ void MUSImporter::Start()
 void MUSImporter::End()
 {
 	if (Playing) {
+		FadeEnd();
 		if (playlist.size() == 0)
 			return;
 		if (playlist[PLpos].PLEnd[0] != 0) {
@@ -221,6 +222,11 @@ void MUSImporter::HardEnd()
 	core->GetAudioDrv()->Stop();
 	Playing = false;
 	PLpos = 0;
+}
+
+void MUSImporter::FadeEnd()
+{
+	core->GetAudioDrv()->FadeOut();
 }
 
 /** Switches the current PlayList while playing the current one, return nonzero on error */

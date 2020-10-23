@@ -68,6 +68,7 @@ public:
 	/** Ends the Current PlayList Execution */
 	void End();
 	void HardEnd();
+	void FadeEnd();
 	/** Start the PlayList Music Execution */
 	void Start();
 	/** Plays the Next Entry */

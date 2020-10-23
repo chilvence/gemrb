@@ -32,6 +32,7 @@ public:
 	/** Ends the Current PlayList Execution */
 	virtual void End(void) = 0;
 	virtual void HardEnd(void) = 0;
+	virtual void FadeEnd(void) = 0;
 	/** Start the PlayList Music Execution */
 	virtual void Start(void) = 0;
 	/** Initializes the PlayList Manager */

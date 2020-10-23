@@ -676,6 +676,32 @@ bool OpenALAudioDriver::Resume()
 	return true;
 }
 
+// like stop, but gradually reduce the gain
+bool OpenALAudioDriver::FadeOut()
+{
+	SDL_mutexP(musicMutex);
+	if (!MusicSource || !alIsSource(MusicSource)) {
+		SDL_mutexV(musicMutex);
+		return false;
+	}
+	Fading = true; //trap the playback loop into repeating this function
+	float originalGain = 1.0f;
+	alGetSourcef(MusicSource, AL_GAIN, &originalGain);
+
+	originalGain -= 0.01f;
+
+	if (originalGain > 0.001f) {
+		alSourcef(MusicSource, AL_GAIN, originalGain);
+		
+	}
+	else {
+		Fading = false;
+		core->GetMusicMgr()->HardEnd();
+	}
+	SDL_mutexV(musicMutex);
+	return true;
+}
+
 int OpenALAudioDriver::CreateStream(Holder<SoundMgr> newMusic)
 {
 	StackLock l(musicMutex, "musicMutex in CreateStream()");
@@ -1015,6 +1041,7 @@ int OpenALAudioDriver::MusicManager(void* arg)
 							driver->MusicPlaying = false;
 							return -1;
 						}
+						if (driver->Fading == true) { driver->FadeOut(); }
 						processed--;
 					}
 				}

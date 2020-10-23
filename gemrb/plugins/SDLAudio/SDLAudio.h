@@ -55,6 +55,7 @@ public:
 	bool Stop();
 	bool Pause() { return true; } /*not implemented*/
 	bool Resume() { return true; } /*not implemented*/
+	bool FadeOut(); /*not implemented*/
 	bool CanPlay();
 	void ResetMusics();
 	void UpdateListenerPos(int XPos, int YPos);

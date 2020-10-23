@@ -300,6 +300,14 @@ bool SDLAudio::Stop()
 	return true;
 }
 
+bool SDLAudio::FadeOut()
+{
+	// TODO
+	MusicPlaying = false;
+	Mix_HookMusic(NULL, NULL);
+	return true;
+}
+
 bool SDLAudio::Play()
 {
 	MusicPlaying = true;

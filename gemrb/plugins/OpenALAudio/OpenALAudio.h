@@ -127,6 +127,7 @@ public:
 	bool Stop();
 	bool Pause();
 	bool Resume();
+	bool FadeOut();
 	int CreateStream(Holder<SoundMgr>);
 	void UpdateListenerPos(int XPos, int YPos );
 	void GetListenerPos( int &XPos, int &YPos );
@@ -147,6 +148,7 @@ private:
 	ALCcontext *alutContext;
 	ALuint MusicSource;
 	bool MusicPlaying;
+	bool Fading = false;
 	SDL_mutex* musicMutex;
 	ALuint MusicBuffer[MUSICBUFFERS];
 	Holder<SoundMgr> MusicReader;
