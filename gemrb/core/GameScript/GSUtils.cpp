@@ -1210,8 +1210,8 @@ bool CreateMovementEffect(Actor* actor, const char *area, const Point &position,
 
 void MoveBetweenAreasCore(Actor* actor, const char *area, const Point &position, int face, bool adjust)
 {
-	Log(MESSAGE, "GameScript", "MoveBetweenAreas: %s to %s [%d.%d] face: %d",
-		actor->GetName(0), area,position.x,position.y, face);
+	//Log(MESSAGE, "GameScript", "MoveBetweenAreas: %s to %s [%d.%d] face: %d",
+	//	actor->GetName(0), area,position.x,position.y, face);
 	Map* map1 = actor->GetCurrentArea();
 	Map* map2;
 	Game* game = core->GetGame();
