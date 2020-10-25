@@ -508,7 +508,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 
 	map->AddTileMap( tm, lm->GetImage(), sr->GetBitmap(), sm ? sm->GetSprite2D() : NULL, hm->GetBitmap() );
 
-	Log(DEBUG, "AREImporter", "Loading songs");
+	//Log(DEBUG, "AREImporter", "Loading songs");
 	str->Seek( SongHeader, GEM_STREAM_START );
 	//5 is the number of song indices
 	for (i = 0; i < MAX_RESCOUNT; i++) {
@@ -572,7 +572,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 	str->ReadWord( &map->RestHeader.DayChance );
 	str->ReadWord( &map->RestHeader.NightChance );
 
-	Log(DEBUG, "AREImporter", "Loading regions");
+	//Log(DEBUG, "AREImporter", "Loading regions");
 	core->LoadProgress(70);
 	//Loading InfoPoints
 	for (i = 0; i < InfoPointsCount; i++) {
@@ -736,7 +736,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 		}
 	}
 
-	Log(DEBUG, "AREImporter", "Loading containers");
+	//Log(DEBUG, "AREImporter", "Loading containers");
 	for (i = 0; i < ContainersCount; i++) {
 		str->Seek( ContainersOffset + ( i * 0xC0 ), GEM_STREAM_START );
 		ieVariable Name;
@@ -848,7 +848,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 		c->OpenFail = OpenFail;
 	}
 
-	Log(DEBUG, "AREImporter", "Loading doors");
+	//Log(DEBUG, "AREImporter", "Loading doors");
 	for (i = 0; i < DoorsCount; i++) {
 		str->Seek( DoorsOffset + ( i * 0xc8 ), GEM_STREAM_START );
 		int count;
@@ -1063,7 +1063,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 		door->SetDialog(Dialog);
 	}
 
-	Log(DEBUG, "AREImporter", "Loading spawnpoints");
+	//Log(DEBUG, "AREImporter", "Loading spawnpoints");
 	for (i = 0; i < SpawnCount; i++) {
 		str->Seek( SpawnOffset + (i*0xc8), GEM_STREAM_START );
 		ieVariable Name;
@@ -1117,7 +1117,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 	}
 
 	core->LoadProgress(75);
-	Log(DEBUG, "AREImporter", "Loading actors");
+	//Log(DEBUG, "AREImporter", "Loading actors");
 	str->Seek( ActorOffset, GEM_STREAM_START );
 	if (!core->IsAvailable( IE_CRE_CLASS_ID )) {
 		Log(WARNING, "AREImporter", "No Actor Manager Available, skipping actors");
