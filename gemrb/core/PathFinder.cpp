@@ -256,7 +256,7 @@ PathNode *Map::GetLine(const Point &p, int steps, unsigned int orient) const
 // target (the goal must be in sight of the end, if PF_SIGHT is specified)
 PathNode *Map::FindPath(const Point &s, const Point &d, unsigned int size, unsigned int minDistance, int flags, const Actor *caller) const
 {
-	Log(DEBUG, "FindPath", "s = (%d, %d), d = (%d, %d), caller = %s, dist = %d, size = %d", s.x, s.y, d.x, d.y, caller ? caller->GetName(0) : "nullptr", minDistance, size);
+	//Log(DEBUG, "FindPath", "s = (%d, %d), d = (%d, %d), caller = %s, dist = %d, size = %d", s.x, s.y, d.x, d.y, caller ? caller->GetName(0) : "nullptr", minDistance, size);
 	NavmapPoint nmptDest = d;
 	NavmapPoint nmptSource = s;
 	if (!(GetBlockedInRadius(d.x, d.y, size) & PATH_MAP_PASSABLE)) {
@@ -267,7 +267,7 @@ PathNode *Map::FindPath(const Point &s, const Point &d, unsigned int size, unsig
 		AdjustPositionNavmap(nmptDest);
 	}
 	if (minDistance < size && !(GetBlockedInRadius(nmptDest.x, nmptDest.y, size) & (PATH_MAP_PASSABLE | PATH_MAP_ACTOR))) {
-		Log(DEBUG, "FindPath", "%s can't fit in destination", caller ? caller->GetName(0) : "nullptr");
+		//Log(DEBUG, "FindPath", "%s can't fit in destination", caller ? caller->GetName(0) : "nullptr");
 		return nullptr;
 	}
 	SearchmapPoint smptSource(nmptSource.x / 16, nmptSource.y / 12);
@@ -393,9 +393,9 @@ PathNode *Map::FindPath(const Point &s, const Point &d, unsigned int size, unsig
 		}
 		return resultPath;
 	} else if (caller) {
-		Log(DEBUG, "FindPath", "Pathing failed for %s", caller->GetName(0));
+		//Log(DEBUG, "FindPath", "Pathing failed for %s", caller->GetName(0));
 	} else {
-		Log(DEBUG, "FindPath", "Pathing failed");
+		//Log(DEBUG, "FindPath", "Pathing failed");
 	}
 
 	return nullptr;
