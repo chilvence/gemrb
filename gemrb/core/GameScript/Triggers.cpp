@@ -1624,7 +1624,7 @@ int GameScript::NearSavedLocation(Scriptable *Sender, const Trigger *parameters)
 	}
 	if (core->HasFeature(GF_HAS_KAPUTZ)) {
 		// TODO: we don't understand how this works in pst yet
-		Log(ERROR, "GameScript", "Aborting NearSavedLocation! Don't know what to do!");
+		//Log(ERROR, "GameScript", "Aborting NearSavedLocation! Don't know what to do!");
 		return 1;
 	}
 	const Actor *actor = (const Actor *) Sender;
