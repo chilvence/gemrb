@@ -1244,7 +1244,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 	int pst = core->HasFeature( GF_AUTOMAP_INI );
 
 	core->LoadProgress(90);
-	Log(DEBUG, "AREImporter", "Loading animations");
+	//Log(DEBUG, "AREImporter", "Loading animations");
 	str->Seek( AnimOffset, GEM_STREAM_START );
 	if (!core->IsAvailable( IE_BAM_CLASS_ID )) {
 		Log(WARNING, "AREImporter", "No Animation Manager Available, skipping animations");
@@ -1293,7 +1293,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 		}
 	}
 
-	Log(DEBUG, "AREImporter", "Loading entrances");
+	//Log(DEBUG, "AREImporter", "Loading entrances");
 	str->Seek( EntrancesOffset, GEM_STREAM_START );
 	for (i = 0; i < EntrancesCount; i++) {
 		ieVariable Name;
@@ -1307,7 +1307,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 		map->AddEntrance( Name, XPos, YPos, Face );
 	}
 
-	Log(DEBUG, "AREImporter", "Loading variables");
+	//Log(DEBUG, "AREImporter", "Loading variables");
 	map->locals->LoadInitialValues(ResRef);
 	str->Seek( VariablesOffset, GEM_STREAM_START );
 	for (i = 0; i < VariablesCount; i++) {
@@ -1321,7 +1321,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 		map->locals->SetAt( Name, Value );
 	}
 
-	Log(DEBUG, "AREImporter", "Loading ambients");
+	//Log(DEBUG, "AREImporter", "Loading ambients");
 	str->Seek( AmbiOffset, GEM_STREAM_START );
 	for (i = 0; i < AmbiCount; i++) {
 		int j;
@@ -1362,7 +1362,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 		map->AddAmbient(ambi);
 	}
 
-	Log(DEBUG, "AREImporter", "Loading automap notes");
+	//Log(DEBUG, "AREImporter", "Loading automap notes");
 	str->Seek( NoteOffset, GEM_STREAM_START );
 
 	Point point;
@@ -1460,7 +1460,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 	}
 
 	//this is a ToB feature (saves the unexploded projectiles)
-	Log(DEBUG, "AREImporter", "Loading traps");
+	//Log(DEBUG, "AREImporter", "Loading traps");
 	for (i = 0; i < TrapCount; i++) {
 		ieResRef TrapResRef;
 		ieDword TrapEffOffset;
@@ -1513,7 +1513,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 		map->AddProjectile( pro, pos, pos);
 	}
 
-	Log(DEBUG, "AREImporter", "Loading tiles");
+	//Log(DEBUG, "AREImporter", "Loading tiles");
 	//Loading Tiled objects (if any)
 	str->Seek( TileOffset, GEM_STREAM_START );
 	for (i = 0; i < TileCount; i++) {
@@ -1540,7 +1540,7 @@ Map* AREImporter::GetMap(const char *ResRef, bool day_or_night)
 		map->TMap->AddTile( ID, Name, Flags, NULL,0, NULL, 0 );
 	}
 
-	Log(DEBUG, "AREImporter", "Loading explored bitmap");
+	//Log(DEBUG, "AREImporter", "Loading explored bitmap");
 	i = map->GetExploredMapSize();
 	if (ExploredBitmapSize==i) {
 		map->ExploredBitmap = (ieByte *) malloc(i);
