@@ -2037,7 +2037,7 @@ void Movable::SetStance(unsigned int arg)
 	//don't modify stance from dead back to anything if the actor is dead
 	if ((StanceID==IE_ANI_TWITCH || StanceID==IE_ANI_DIE) && (arg!=IE_ANI_TWITCH) ) {
 		if (GetInternalFlag()&IF_REALLYDIED) {
-			Log(WARNING, "Movable", "Stance overridden by death");
+			//Log(WARNING, "Movable", "Stance overridden by death");
 			return;
 		}
 	}
@@ -2052,7 +2052,7 @@ void Movable::SetStance(unsigned int arg)
 
 	if (arg >= MAX_ANIMS) {
 		StanceID = IE_ANI_AWAKE;
-		Log(ERROR, "Movable", "Tried to set invalid stance id(%u)", arg);
+		//Log(ERROR, "Movable", "Tried to set invalid stance id(%u)", arg);
 		return;
 	}
 
