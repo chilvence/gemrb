@@ -169,9 +169,6 @@ class GView:
 	def RemoveSubview(self, view, delete=False):
 		return RemoveView(view, delete)
 
-	def CreateWorldMapControl(self, control, *args):
-		return self.CreateControl(control, IE_GUI_WORLDMAP, args[0], args[1], args[2], args[3], args[4:])
-	
 	def CreateMapControl(self, control, *args):
 		return self.CreateControl(control, IE_GUI_MAP, args[0], args[1], args[2], args[3], args[4:])
   
