@@ -2224,8 +2224,7 @@ void GameControl::PerformSelectedAction(const Point& p)
 		HandleContainer(overContainer, selectedActor);
 	} else if (overInfoPoint) {
 		if (overInfoPoint->Type==ST_TRAVEL && target_mode == TARGET_MODE_NONE) {
-			CommandSelectedMovement(p);
-
+			//travel: command the actor(s) to use the pointed exit
 			ieDword exitID = overInfoPoint->GetGlobalID();
 			if (core->HasFeature(GF_TEAM_MOVEMENT)) {
 				// pst forces everyone to travel (eg. ar0201 outside_portal)
@@ -2239,6 +2238,8 @@ void GameControl::PerformSelectedAction(const Point& p)
 					game->selected[i]->UseExit(exitID);
 				}
 			}
+			//command the actors to move toward the exit
+			CommandSelectedMovement(p);
 		}
 		if (HandleActiveRegion(overInfoPoint, selectedActor, p)) {
 			core->SetEventFlag(EF_RESETTARGET);
