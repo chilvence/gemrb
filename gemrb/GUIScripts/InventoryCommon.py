@@ -692,6 +692,13 @@ def ConsumeItem ():
 
 	pc = GemRB.GameGetSelectedPCSingle ()
 	slot = GemRB.GetVar ("ItemButton")
+
+	# PST: get the real inventory slot from the itemhash map
+	if GameCheck.IsPST():
+		slot = GUIINV.ItemHash[slot][0]
+
+	print "Using slot ", slot
+
 	# the drink item header is always the first
 	# pst also requires forcing the target (eg. clot charms), which doesn't hurt elsewhere
 	GemRB.UseItem (pc, slot, 0, 5)
